@@ -1,0 +1,153 @@
+.root {
+  width: 400px;
+  margin: 0 auto;
+  margin-top: 20px;
+  position: relative;
+
+}
+
+.title {
+    font-size: 30px;
+}
+
+.photo__wrap{
+    width: 200px;
+    margin: 0 auto;
+}
+
+.account {
+  display: flex;
+  justify-content: center;
+  flex-direction: column;
+
+  .pen {
+    width: 20px;
+    height: 20px;
+    cursor: pointer;
+  }
+  .name {
+    color: orange;
+    font-weight: bold;
+  }
+  .email {
+    font-size: 16px;
+  }
+  .tel {
+    font-size: 16px;
+  }
+  .pas {
+    font-size: 16px;
+  }
+}
+
+
+.root {
+  width: 400px;
+  padding: 20px;
+  border: 1px solid #dedede;
+  margin: 50px auto;
+}
+
+.field {
+  margin-bottom: 20px;
+}
+
+.title {
+  font-size: 40px !important;
+  text-align: left !important;
+  font-weight: bold !important;
+}
+
+.account {
+  padding: 10px;
+  font-size: 20px;
+  line-height: 24px;
+  text-align: center;
+}
+
+.input__phone {
+  height: 54px !important;
+  padding-left: 40px !important;
+  border: none !important;
+  width: 100% !important;
+}
+
+.input__phone label {
+  left: 40px;
+  padding-bottom: 20px;
+}
+.input__phone input {
+  height: 54px !important;
+}
+
+.input__conteiner {
+  margin-bottom: 20px !important;
+}
+
+///////////////////////////
+
+.popup {
+  position: absolute;
+  right: 18px;
+  top: 25px;
+  height: 100%;
+  overflow: hidden;
+}
+
+.popup__wrap{
+  display: flex;
+  cursor: pointer;
+}
+
+.popup__text_color{
+  margin-right: 10px;
+  border-bottom: 2px solid transparent;
+  transition: all .3s;
+  &:hover {
+    border-bottom: 2px solid black;
+  }
+}
+
+.popup__main_color{
+  width: 15px;
+  height: 15px;
+  margin-bottom: 10px;
+}
+
+.popup__block{
+  position: relative;
+  width: 100%;
+}
+
+.popup__color_open{
+  position: absolute;
+  width: 15px;
+  height: 15px;
+  margin-bottom: 10px;
+  cursor: pointer;
+  opacity: 1;
+  z-index: 0;
+  right: 0;
+  top: 0;
+  transition: all .5s;
+}
+
+.popup__color{
+  display: block;
+  position: absolute;
+  width: 15px;
+  height: 15px;
+  cursor: pointer;
+  opacity: 0;
+  z-index: -1;
+  right: 0;
+  top: -200px;
+  transition: all .5s;
+}
+
+.popup__colors{
+  width: 15px;
+  height: 15px;
+  margin-bottom: 10px;
+  cursor: pointer;
+}
