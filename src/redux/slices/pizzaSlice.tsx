@@ -3,13 +3,57 @@ import { PizzaTypes } from "../../types/types";
 import axios from "../../axios";
 
 
-export const fetchGetPizzas = createAsyncThunk<any, undefined, {rejectValue: string}>('pizzas/fetchPizzas', async (_, { rejectWithValue }) => {
+export const fetchGetPizzas = createAsyncThunk<PizzaTypes[], undefined, {rejectValue: string}>('pizzas/fetchGetPizzas', async (_, { rejectWithValue }) => {
   const {data} = await axios.get('https://6612becb53b0d5d80f664b71.mockapi.io/items');
   if (!data) {
     return rejectWithValue('fetchGetPizzas Error!');
   }
   return data;
 });
+
+export const fetchPostPizza = createAsyncThunk<PizzaTypes, PizzaTypes, {rejectValue: string}>(
+  "pizza/fetchPostPizza", async (newPizza, { rejectWithValue }) => {
+    if(!newPizza){
+      return rejectWithValue('fetchGetPizzas Error!');
+    }
+    await axios.post('https://6612becb53b0d5d80f664b71.mockapi.io/items', newPizza);
+    const {data} = await axios.get('https://6612becb53b0d5d80f664b71.mockapi.io/items');
+    return data;
+  }
+)
+
+export const fetchDeletePizza = createAsyncThunk<PizzaTypes, number, {rejectValue: string}>(
+  "pizza/fetchDeletePizza", async (id: number, { rejectWithValue }) => {
+    if(!id){
+      return rejectWithValue('fetchDeletePizza Error!');
+    }
+    await axios.delete(`https://6612becb53b0d5d80f664b71.mockapi.io/id=${id}`);
+    const {data} = await axios.get('https://6612becb53b0d5d80f664b71.mockapi.io/items');
+    return data;
+  }
+)
+
+export const fetchFilterPizzas = createAsyncThunk<PizzaTypes, number, { rejectValue: string}>(
+  "pizzas/fetchFilterPizzas", async (category: number, { rejectWithValue }) => {
+    if(!category){
+      return rejectWithValue('fetchFilterPizzas Error!');
+    }
+    await axios.get(`https://6612becb53b0d5d80f664b71.mockapi.io/items?filter=${category}`);
+    const {data} = await axios.get('https://6612becb53b0d5d80f664b71.mockapi.io/items');
+    return data;
+  }
+)
+
+export const fetchSearchPizzas = createAsyncThunk<PizzaTypes, string, {rejectValue: string}>(
+  "pizzas/fetchSearchPizzas", async (value: string, {rejectWithValue}) => {
+      if(!value) {
+        return rejectWithValue('fetchFilterPizzas Error!');
+      }
+      await axios.get(`https://6612becb53b0d5d80f664b71.mockapi.io/items?title=${value}`);
+      const {data} = await axios.get('https://6612becb53b0d5d80f664b71.mockapi.io/items');
+      return data;
+  } 
+)
 
 // export const fetchPizzas = createAsyncThunk<FetchPizzasTypes, number | undefined, {rejectValue: string}>('pizzas/fetchPizzas', async (categoryId, { rejectWithValue }) => {
 //   const { data }: DataType = categoryId ? await axios.get('/api/pizzas/' + categoryId) : await axios.get('/api/pizzas')

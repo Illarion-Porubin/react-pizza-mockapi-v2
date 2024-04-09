@@ -2,7 +2,7 @@ import React from "react";
 import { useDispatch } from "react-redux";
 import { cartSlice } from "../../redux/slices/cartSlice";
 import { PizzaTypes, CartTypes } from "../../types/types";
-import s from "./PizzasComp.module.scss";
+import s from "./Item.module.scss";
 import sb from "../../scss/components/_button.module.scss"
 
 

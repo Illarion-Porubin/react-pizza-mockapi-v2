@@ -1,6 +1,6 @@
-import { Header } from "./components/Header/HeaderComp";
+import { Header } from "./components/header/HeaderComp";
 import { Routes, Route } from "react-router-dom";
-import { HomePage } from "./pages/Home/HomePage";
+import { HomePage } from "./pages/home/HomePage";
 // import { CartPage } from "./pages/Cart/CartPage";
 // import { NotFoundPage } from "./pages/NotFound/NotFoundPage";
 // import { RegistrationPage } from "./pages/Auth/RegistrationPage";

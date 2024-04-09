@@ -5,7 +5,7 @@ import { useCustomDispatch, useCustomSelector } from "../../hooks/store";
 import { Button, Paper, TextField, Typography } from "@mui/material";
 import { StyledEngineProvider } from "@mui/material/styles";
 import { selectAuthData } from "../../redux/selectors";
-import { UploadWidget } from "../../components/Upload/UploadWidget";
+import { UploadWidget } from "../../components/upload/UploadWidget";
 import { fetchUpdate, fetchAuthMe } from "../../redux/slices/authSlice";
 import { AuthState } from "../../redux/slices/authSlice";
 import { UserTypes } from "../../types/types";

@@ -13,9 +13,9 @@ export const CartItem: React.FC<CartTypes> = React.memo(
     const onClickPlus = () => dispatch<{ payload: string; type: string; }>(cartSlice.actions.plusOrder(identity));
     const onClickMinus = () => dispatch<{ payload: string; type: string; }>(cartSlice.actions.minusOrder(identity));
     const onClickRemove = () => dispatch<{ payload: string; type: string; }>(cartSlice.actions.removeItem(identity));
-
+ 
     return (
-      <div className={s.cart__item}>
+      <div className={s.cart__item}> 
         <div className={s.cart__item_img}>
           <img className={s_pb.pizza_block__image} src={imageUrl} alt="Pizza" />
         </div>

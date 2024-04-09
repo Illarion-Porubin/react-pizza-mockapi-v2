@@ -9,14 +9,14 @@ export const Categories: React.FC = () => {
   const categories: string[] = [
     "Все",
     "Мясные",
-    "Вегетарианская",
+    "Вегетарианская", 
     "Гриль",
     "Острые",
   ];
 
   const menu = (id: number) => {
-    // dispatch(fetchPizzas(id));
-    setActiveIndex(id);
+    // dispatch(fetchPizzas(id));  
+    setActiveIndex(id); 
   };
 
   return (

@@ -2,7 +2,7 @@ import React from "react";
 import { Link } from "react-router-dom";
 import { useCustomDispatch, useCustomSelector } from "../../hooks/store";
 import { selectAuthData, selectCartData } from "../../redux/selectors";
-import { CartItem } from "../../components/CartItem/CartItemComp";
+import { CartItem } from "../../components/cartItem/CartItemComp";
 import { cartSlice, fetchOrder } from "../../redux/slices/cartSlice";
 import { v1 } from "uuid";
 import { CartTypes } from "../../types/types";

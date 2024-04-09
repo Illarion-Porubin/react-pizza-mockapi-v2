@@ -1,6 +1,6 @@
 import React from "react";
 import { Link } from "react-router-dom";
-import { Search } from "../Search/SearchComp";
+import { Search } from "../search/SearchComp";
 import { useCustomSelector } from "../../hooks/store";
 import { selectAuthData, selectCartData } from "../../redux/selectors";
 import { Button } from "@mui/material";

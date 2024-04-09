@@ -1,19 +1,23 @@
 import React from "react";
-import { PizzasComp } from "../../components/Pizzas/PizzasComp";
-import { Categories } from "../../components/Categories/CategoriesComp";
-import { Sort } from "../../components/Sort/SortComp";
-import { useCustomDispatch, useCustomSelector } from "../../hooks/store";
-import { selectCurrentData } from "../../redux/selectors";
-import { fetchGetPizzas, PizzaState } from "../../redux/slices/pizzaSlice";
-import { PizzaTypes } from "../../types/types";
-import { Pagination } from "../../components/Pagination/PaginationComp";
-import Skeleton from "../../components/Pizzas/Skeleton";
 import s from "./HomePage.module.scss";
-
+import { Categories } from "../../components/categories/CategoriesComp";
+import { Sort } from "../../components/sort/SortComp";
+import { useCustomDispatch, useCustomSelector } from "../../hooks/store";
+import { PizzaState, fetchGetPizzas } from "../../redux/slices/pizzaSlice";
+import { Pagination } from "../../components/pagination/PaginationComp";
+import { usePaginate } from "../../hooks/usePaginate";
+import { selectCurrentData } from "../../redux/selectors";
+import { DataList } from "../../components/itemList/ItemList";
 
 export const HomePage: React.FC = () => {
-  const pizzaState = useCustomSelector<PizzaState>(selectCurrentData);
   const dispatch = useCustomDispatch();
+  const pizzaState = useCustomSelector<PizzaState>(selectCurrentData);
+  const [currentPage, setCurentPage] = React.useState<number>(0);
+  const { data } = usePaginate({
+    items: 8,
+    dataList: pizzaState.pizzas,
+    currentPage,
+  });
 
   React.useEffect(() => {
     dispatch(fetchGetPizzas());
@@ -27,18 +31,10 @@ export const HomePage: React.FC = () => {
         <Sort />
       </div>
       <h2 className={s.content__title}>Все пиццы</h2>
-      <div className={s.content__items}>
-        {
-        pizzaState.isLoading === "loaded" 
-          ? 
-          pizzaState.pizzas.map((data: PizzaTypes) => (
-            <PizzasComp data={data} key={data.id} />
-          ))
-          : 
-          [...new Array(6)].map((_, index) => <Skeleton key={index} />)
-        }
+      <div className={s.content__list}>
+        <DataList data={data} />
       </div>
-      <Pagination />
+      <Pagination allPages={data.allPages} setCurentPage={setCurentPage} />
     </>
   );
 };
