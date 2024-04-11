@@ -1,25 +1,27 @@
-import { Header } from "./components/header/HeaderComp";
-import { Routes, Route } from "react-router-dom";
-import { HomePage } from "./pages/home/HomePage";
-// import { CartPage } from "./pages/Cart/CartPage";
-// import { NotFoundPage } from "./pages/NotFound/NotFoundPage";
-// import { RegistrationPage } from "./pages/Auth/RegistrationPage";
-// import { LoginPage } from "./pages/Auth/LoginPage";
-// import { AccountPage } from "./pages/Account/AccountPage";
-import { useEffect } from "react";
-// import { fetchAuthMe } from "./redux/slices/authSlice";
-import { useCustomDispatch } from "./hooks/store";
 import s from "./scss/_app.module.scss";
 // import "react-phone-input-2/lib/style.css"; 
 import "./scss/libs/_normalize.scss"
-
-
+import { Header } from "./modules/header/Header";
+import { Routes, Route } from "react-router-dom";
+import { Home } from "./pages/home/Home";
+import { useEffect } from "react";
+import { useCustomDispatch } from "./hooks/store";
+import { Account } from "./pages/account/Account";
+import { Registration } from "./pages/auth/Registration";
+import { Login } from "./pages/auth/Login";
+import { Cart } from "./pages/cart/Cart";
+import { NotFoundPage } from "./pages/notFound/NotFound";
 
 function App() {
   const dispatch = useCustomDispatch();
+
+
+
+
   useEffect(() => {
     // dispatch(fetchAuthMe())
   }, [dispatch])
+
 
   
   return (
@@ -29,12 +31,12 @@ function App() {
         <div className={s.content}>
           <div className={s.container}>
             <Routes>
-              <Route path="/" element={<HomePage />} />
-              {/* <Route path="/account" element={<AccountPage />} /> */}
-              {/* <Route path="/regist" element={<RegistrationPage />} />
-              <Route path="/login" element={<LoginPage />} />
-              <Route path="/cart" element={<CartPage />} />
-              <Route path="*" element={<NotFoundPage />} /> */}
+              <Route path="/" element={<Home />} />
+              <Route path="/account" element={<Account/>} />
+              <Route path="/regist" element={<Registration />} />
+              <Route path="/login" element={<Login />} />
+              <Route path="/cart" element={<Cart />} />
+              <Route path="*" element={<NotFoundPage />} />
             </Routes>
           </div>
         </div>

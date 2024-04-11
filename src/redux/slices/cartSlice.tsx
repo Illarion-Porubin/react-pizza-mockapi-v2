@@ -2,6 +2,14 @@ import { createSlice, createAsyncThunk, PayloadAction } from "@reduxjs/toolkit";
 import { CartTypes } from "../../types/types";
 import axios from "../../axios";
 
+type DataType = {
+  data: {
+    phone: string,
+    items: CartTypes[],
+    totolCount?: number,
+    totolPrice?: number,
+  }
+}
 
 export const fetchOrder = createAsyncThunk<CartState, CartState, {rejectValue: string | unknown}>("cart/fetchOrder", async (params, { rejectWithValue }) => {
   const { data }: DataType = await axios.post("/api/order", params);
@@ -11,14 +19,6 @@ export const fetchOrder = createAsyncThunk<CartState, CartState, {rejectValue: s
   return data;
 });
 
-type DataType = {
-  data: {
-    phone: string,
-    items: CartTypes[],
-    totolCount?: number,
-    totolPrice?: number,
-  }
-}
 
 export type CartState = {
   items: CartTypes[];
