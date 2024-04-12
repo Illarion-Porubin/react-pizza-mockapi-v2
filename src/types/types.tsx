@@ -10,10 +10,10 @@ export type PizzaTypes = {
 };
 
 export type CartTypes = {
-  _id: number;
+  id: number;
   imageUrl: string;
-  name: string;
-  types: string;
+  title: string;
+  types: number;
   sizes: number;
   price: number;
   pizzasPrice: number;

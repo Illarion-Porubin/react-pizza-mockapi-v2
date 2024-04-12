@@ -1,4 +1,4 @@
-import axios from 'axios';
+import axios, { AxiosHeaderValue, AxiosResponse, InternalAxiosRequestConfig } from 'axios';
 import { AuthResponse } from "../models/response/AuthResponse";
 
 export const API_URL = `http://localhost:4400/api`
@@ -8,12 +8,12 @@ const $api = axios.create({
     baseURL: API_URL
 })
 
-$api.interceptors.request.use((config: any) => {
+$api.interceptors.request.use((config: InternalAxiosRequestConfig<AxiosHeaderValue | undefined>) => {
     config.headers.Authorization = `Bearer ${localStorage.getItem('token')}`
     return config;
 })
 
-$api.interceptors.response.use((config) => {
+$api.interceptors.response.use((config: AxiosResponse<AuthResponse, boolean | undefined>) => {
     return config;
 },async (error) => {
     const originalRequest = error.config;

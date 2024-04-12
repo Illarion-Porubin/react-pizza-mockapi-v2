@@ -52,7 +52,10 @@ export const HeaderContent: React.FC = () => {
             </div>
           </Link>
           <Search />
-          <div className={s.header__cart}> 
+          <div className={s.header__cart}>
+            <Link to="/about" className={s.header__user_wrapp}>
+              <Button className={s.userEnter}>Обо мне</Button>
+            </Link>
             <Link to="/account">
               <Button>Кабинет</Button>
             </Link>
@@ -76,5 +79,5 @@ export const HeaderContent: React.FC = () => {
 };
 
 export const Header: React.FC = () => {
-  return <Container child={<HeaderContent/>}/>;
+  return <Container child={<HeaderContent />} />;
 };

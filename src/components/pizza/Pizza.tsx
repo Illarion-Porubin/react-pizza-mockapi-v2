@@ -1,22 +1,21 @@
 import React from "react";
+import s from "./Pizza.module.scss";
+import sb from "../../scss/components/_button.module.scss"
 import { useDispatch } from "react-redux";
 import { cartSlice } from "../../redux/slices/cartSlice";
 import { PizzaTypes, CartTypes } from "../../types/types";
-import s from "./Pizza.module.scss";
-import sb from "../../scss/components/_button.module.scss"
-
 
 interface Props {
   data: PizzaTypes;
 }
 
 export const Pizza: React.FC<Props> = ({ data }) => {
-  const dispatch = useDispatch()
+  const dispatch = useDispatch();
   const [activeTypes, setActiveTypes] = React.useState<number>(data.types[0]);
   const [activeSize, setActiveSize] = React.useState<number>(data.sizes[0]);
   const [pizzaCount, setPizzaCount] = React.useState<number>(0);
-  const [indexSize, setIndexSize] = React.useState<number>(0)
-  const sizePrice = [0, 130, 255]
+  const [indexSize, setIndexSize] = React.useState<number>(0);
+  const sizePrice = [0, 130, 255];
 
   const changeSize = (size: number, i: number) => { 
     setActiveSize(size)
@@ -33,8 +32,8 @@ export const Pizza: React.FC<Props> = ({ data }) => {
         pizzasPrice: pizzaCount * (+data.price + +sizePrice[indexSize]),
         identity: data.title + activeTypes + indexSize
       }
-      console.log(newOrder, 'newOrder')
       dispatch<{payload: CartTypes; type: string}>(cartSlice.actions.addOrder(newOrder))
+      setPizzaCount(0)
     }
   }
 

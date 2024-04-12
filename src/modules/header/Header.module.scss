@@ -6,6 +6,8 @@
   &__cart{
     position: relative;
     display: flex;
+    justify-content: center;
+    align-items: center;
   }
   &__user-wrapp{
     max-width: 55px;

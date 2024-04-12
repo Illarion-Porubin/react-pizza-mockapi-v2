@@ -99,7 +99,7 @@ export const Account: React.FC = () => {
                   key={color}
                   className={s.popup__colors}
                   style={{ backgroundColor: color }}
-                  onClick={() => setUserData((prev: any) => prev = {...prev, color})}
+                  onClick={() => setUserData((prev: UserTypes | null) => prev = {...prev, color})}
                 >
                 </li>
               ))}
@@ -114,7 +114,7 @@ export const Account: React.FC = () => {
               label="Полное имя"
               value={userData?.name ? userData?.name : "Ваше имя"}
               onChange={(e: React.ChangeEvent<HTMLInputElement>) =>
-                setUserData((prev: any) => prev = {...prev, name: e.target?.value})
+                setUserData((prev: UserTypes | null) => prev = {...prev, name: e.target?.value})
               }
               fullWidth
             />

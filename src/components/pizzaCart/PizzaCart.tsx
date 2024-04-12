@@ -8,7 +8,7 @@ import s from "./PizzaCart.module.scss";
 
 
 export const PizzaCart: React.FC<CartTypes> = React.memo(
-  ({ name, types, sizes, price, pizzasCount, imageUrl, identity }) => {
+  ({ title, types, sizes, price, pizzasCount, imageUrl, identity }) => {
     const dispatch = useCustomDispatch();
     const onClickPlus = () => dispatch<{ payload: string; type: string; }>(cartSlice.actions.plusOrder(identity));
     const onClickMinus = () => dispatch<{ payload: string; type: string; }>(cartSlice.actions.minusOrder(identity));
@@ -20,7 +20,7 @@ export const PizzaCart: React.FC<CartTypes> = React.memo(
           <img className={s_pb.pizza_block__image} src={imageUrl} alt="Pizza" />
         </div>
         <div className={s.cart__item_info}>
-          <h3>{name}</h3> 
+          <h3>{title}</h3> 
           <p>
             {types}, {sizes} см.
           </p>

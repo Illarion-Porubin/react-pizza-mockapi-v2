@@ -16,8 +16,8 @@ export const CategoryList: React.FC = () => {
   ];
 
   const menu = (id: number) => {
-    dispatch(fetchFilterPizzas(id));  
     setActiveIndex(id); 
+    dispatch(fetchFilterPizzas(String(id)));  
   };
 
   return (

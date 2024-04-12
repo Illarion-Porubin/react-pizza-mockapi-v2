@@ -10,20 +10,19 @@ export const Sort: React.FC<Props> = () => {
   const dispatch = useCustomDispatch();
   const [open, setOpen] = React.useState(false);
   const [activeSort, setActiveSort] = React.useState<number>(0);
-
-  const sortArray = [
-    { name: `популярность (MORE)`, sort: "ratingmore" },
-    { name: `популярность (LESS)`, sort: "ratingless" },
-    { name: `цена (MORE)`, sort: "pricemore" },
-    { name: `цена (LESS)`, sort: "priceless" },
-    { name: `алфавит (MORE)`, sort: "namemore" },
-    { name: `алфавит (LESS)`, sort: "nameless" },
-  ];
-
   const sortRef = React.useRef<HTMLDivElement>(null);
 
-  const selectSort = (index: number, sort: string) => {
-    // dispatch(fetchSortPizzas(sort));
+  const sortArray = [
+    { name: `популярные`, mark: "MORE", sort: "rating" },
+    { name: `необычные`, mark: "LESS", sort: "rating" },
+    { name: `дороже`, mark: "MORE", sort: "price" },
+    { name: `дешевле`, mark: "LESS", sort: "price" },
+    { name: `по алфавиту`, mark: "MORE", sort: "title" },
+    { name: `с конца алфавита`, mark: "LESS", sort: "title" },
+  ];
+
+  const selectSort = (index: number, sort: string, mark: string) => {
+    dispatch(fetchSortPizzas({sort, mark}));
     setActiveSort(index);
     setOpen(false);
   };
@@ -67,7 +66,7 @@ export const Sort: React.FC<Props> = () => {
             <li
               className={index === activeSort ? s.active : " "}
               key={value.name}
-              onClick={() => selectSort(index, value.sort)}
+              onClick={() => selectSort(index, value.sort, value.mark)}
             >
               {value.name}
             </li>

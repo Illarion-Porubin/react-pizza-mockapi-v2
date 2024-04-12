@@ -1,4 +1,8 @@
 import React from "react";
+import sb from "../../scss/components/_button.module.scss";
+import s from "./Cart.module.scss";
+import confetti from "canvas-confetti";
+import ReactPhoneInput from "react-phone-input-material-ui";
 import { Link } from "react-router-dom";
 import { useCustomDispatch, useCustomSelector } from "../../hooks/store";
 import { selectAuthData, selectCartData } from "../../redux/selectors";
@@ -6,7 +10,9 @@ import { cartSlice, fetchOrder } from "../../redux/slices/cartSlice";
 import { v1 } from "uuid";
 import { CartTypes } from "../../types/types";
 import { CartState } from "../../redux/slices/cartSlice";
-////////////ui////////////
+import { AuthState } from "../../redux/slices/authSlice";
+import { PizzaCart } from "../../components/pizzaCart/PizzaCart";
+////////////mui////////////
 import Button from "@mui/material/Button";
 import Dialog from "@mui/material/Dialog";
 import DialogActions from "@mui/material/DialogActions";
@@ -14,16 +20,7 @@ import DialogContent from "@mui/material/DialogContent";
 import DialogContentText from "@mui/material/DialogContentText";
 import DialogTitle from "@mui/material/DialogTitle";
 import { StyledEngineProvider, TextField } from "@mui/material";
-//////////
-import sb from "../../scss/components/_button.module.scss";
-import s from "./Cart.module.scss";
-// import PhoneInput from "react-phone-input-2";
-import ReactPhoneInput from "react-phone-input-material-ui";
-import { AuthState } from "../../redux/slices/authSlice";
-import confetti from "canvas-confetti";
-import { PizzaCart } from "../../components/pizzaCart/PizzaCart";
-
-
+///////////////////////////
 
 
 
@@ -35,21 +32,21 @@ export const Cart: React.FC = React.memo(() => {
   const [open, setOpen] = React.useState<boolean>(false);
 
   /////////////////////////////confetti////////////////////////////////
-  let duration = 3 * 1000;
-  let animationEnd = Date.now() + duration;
-  let defaults = { startVelocity: 30, spread: 360, ticks: 60, zIndex: 0 };
+  const duration = 3 * 1000;
+  const animationEnd = Date.now() + duration;
+  const defaults = { startVelocity: 30, spread: 360, ticks: 60, zIndex: 0 };
   function randomInRange(min: number, max: number) {
     return Math.random() * (max - min) + min;
   }
   const addConfetti = () => {
-    let interval: any = setInterval(function() {
-      let timeLeft = animationEnd - Date.now();
+    const interval = setInterval(function() {
+      const timeLeft = animationEnd - Date.now();
   
       if (timeLeft <= 0) {
         return clearInterval(interval);
       }
   
-      let particleCount = 50 * (timeLeft / duration);
+      const particleCount = 50 * (timeLeft / duration);
       confetti(Object.assign({}, defaults, { particleCount, origin: { x: randomInRange(0.1, 0.3), y: Math.random() - 0.2 } }));
       confetti(Object.assign({}, defaults, { particleCount, origin: { x: randomInRange(0.7, 0.9), y: Math.random() - 0.2 } }));
     }, 250);

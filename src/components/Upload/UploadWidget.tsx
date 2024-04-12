@@ -28,7 +28,7 @@ export const UploadWidget = ({ color }) => {
   
   const upload = useCallback(() => {
     cloudinaryRef.current = window.cloudinary;
-    widgetRef.current = cloudinaryRef.current.createUploadWidget(
+    widgetRef.current = cloudinaryRef?.current.createUploadWidget(
       {
         cloudName: "dnuwkgxym",
         uploadPreset: "qsce39om",

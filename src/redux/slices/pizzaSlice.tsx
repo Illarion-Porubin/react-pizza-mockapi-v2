@@ -3,22 +3,33 @@ import { PizzaTypes } from "../../types/types";
 import axios from "../../axios";
 
 
+
 export const fetchGetPizzas = createAsyncThunk<PizzaTypes[], undefined, {rejectValue: string}>(
   'pizzas/fetchGetPizzas', async (_, { rejectWithValue }) => {
-      const {data} = await axios.get('https://6612becb53b0d5d80f664b71.mockapi.io/items');
+      const {data} = await axios.get(`https://6612becb53b0d5d80f664b71.mockapi.io/items`);
       if (!data) {
         return rejectWithValue('fetchGetPizzas Error!');
       }
       return data;
 });
 
-export const fetchFilterPizzas = createAsyncThunk<PizzaTypes[], number, { rejectValue: string}>(
-  "pizzas/fetchFilterPizzas", async (category: number, { rejectWithValue }) => {
-      if(!category){
+export const fetchFilterPizzas = createAsyncThunk<PizzaTypes[], string, { rejectValue: string}>(
+  "pizzas/fetchFilterPizzas", async (category: string, { rejectWithValue }) => {
+      if(category){
+        switch (category) {
+          case '0': {
+            const {data} = await axios.get(`https://6612becb53b0d5d80f664b71.mockapi.io/items?page=1&limit=${quantityProduct}`);
+            return data;
+          }
+          default: {
+            const {data} = await axios.get(`https://6612becb53b0d5d80f664b71.mockapi.io/items?category=${category}`);
+            return data;
+          }
+        }
+      } 
+      else{
         return rejectWithValue('fetchFilterPizzas Error!');
       }
-      const {data} = await axios.get(`https://6612becb53b0d5d80f664b71.mockapi.io/items?category=${category}`);
-      return data;
   }
 )
 
@@ -32,9 +43,19 @@ export const fetchSearchPizzas = createAsyncThunk<PizzaTypes[], string, {rejectV
   } 
 )
 
+export const fetchSortPizzas = createAsyncThunk<PizzaTypes[], {sort: string, mark: string}, {rejectValue: string}>(
+  "pizzas/fetchSortPizzas", async (value: {sort: string, mark: string}, {rejectWithValue}) => {
+      if(value) {
+        const {data} = await axios.get(`https://6612becb53b0d5d80f664b71.mockapi.io/items?sortBy=${value.sort}`);
+        return value.mark === "LESS" ? data.reverse() : data;
+      }
+      return rejectWithValue('fetchSortPizzas Error!');
+  } 
+)
+
 export const fetchPaginationPizzas = createAsyncThunk<PizzaTypes[], number, {rejectValue: string}>(
   'pizzas/fetchPaginationPizzas', async (page: number, { rejectWithValue }) => {
-      const { data } = await axios.get(`https://6612becb53b0d5d80f664b71.mockapi.io/items?page=${page}&limit=8`)
+      const { data } = await axios.get(`https://6612becb53b0d5d80f664b71.mockapi.io/items?page=${page}&limit=${quantityProduct}`)
       if (!data) {
         return rejectWithValue('fetchPaginationPizzas Error!');
       }
@@ -62,6 +83,8 @@ export const fetchDeletePizza = createAsyncThunk<PizzaTypes, number, {rejectValu
   }
 )
 
+const quantityProduct  = 8;
+
 export type PizzaState = {
   pages : number,
   pizzas: PizzaTypes[] | [],
@@ -70,7 +93,7 @@ export type PizzaState = {
 };
 
 const initialState: PizzaState = {
-  pages: 2,
+  pages: 0,
   pizzas: [],
   isLoading: 'idle',
   error: null,
@@ -80,9 +103,9 @@ export const pizzaSlice = createSlice({
   name: "pizza",
   initialState,
   reducers: {
-    SetPage: (state, action) => {
-      state.pages = action.payload
-    }
+    setPage: (state, action) => {
+      state.pages = action.payload;
+    },
   },
   extraReducers: (builder) => {
     builder
@@ -92,7 +115,8 @@ export const pizzaSlice = createSlice({
       state.isLoading = 'loading';
     })
     .addCase(fetchGetPizzas.fulfilled, (state, action) => {
-      state.pizzas = action.payload; 
+      state.pages = Math.round(action.payload.length / quantityProduct) || 0;
+      state.pizzas = action.payload.slice(0, quantityProduct); 
       state.isLoading = 'loaded';
     })
     .addCase(fetchGetPizzas.rejected, (state) => {
@@ -122,6 +146,19 @@ export const pizzaSlice = createSlice({
       state.isLoading = 'loaded';
     })
     .addCase(fetchSearchPizzas.rejected, (state) => {
+      state.pizzas = [];
+      state.isLoading = 'error';
+    })
+    ///fetchSortPizzas
+    .addCase(fetchSortPizzas.pending, (state) => {
+      state.pizzas = [];
+      state.isLoading = 'loading';
+    })
+    .addCase(fetchSortPizzas.fulfilled, (state, action) => {
+      state.pizzas = action.payload; 
+      state.isLoading = 'loaded';
+    })
+    .addCase(fetchSortPizzas.rejected, (state) => {
       state.pizzas = [];
       state.isLoading = 'error';
     })
