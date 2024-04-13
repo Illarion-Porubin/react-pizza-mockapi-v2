@@ -44,7 +44,7 @@ export const Sort: React.FC<Props> = () => {
 
   return (
     <div ref={sortRef} className={s.sort}>
-      <div className={s.sort__label}>
+      <div className={open ? `${s.sort__label} ${s.open}` : s.sort__label}>
         <svg
           width="10"
           height="6"

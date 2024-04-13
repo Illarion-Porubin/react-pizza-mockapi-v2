@@ -1,8 +1,8 @@
 import React from "react";
+import s from "./Search.module.scss";
+import useDebounce from "../../hooks/useDebounce";
 import { useCustomDispatch } from "../../hooks/store";
 import { fetchGetPizzas, fetchSearchPizzas } from "../../redux/slices/pizzaSlice";
-import useDebounce from "../../hooks/useDebounce";
-import s from "./Search.module.scss";
 
 export const Search: React.FC = () => {
   const dispatch = useCustomDispatch();
@@ -41,7 +41,7 @@ export const Search: React.FC = () => {
         ref={search}
         onChange={(e: React.ChangeEvent<HTMLInputElement>) => setValue(e.target.value)}
         className={s.search}
-        placeholder="Поиск пиццы..."
+        placeholder="Поиск"
         value={value}
       />
       <svg 

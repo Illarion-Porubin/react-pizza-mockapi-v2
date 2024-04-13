@@ -5,7 +5,7 @@ import { useCustomDispatch, useCustomSelector } from "../../hooks/store";
 import { fetchGetPizzas } from "../../redux/slices/pizzaSlice";
 import { Pagination } from "../../components/pagination/Pagination";
 import { selectCurrentData } from "../../redux/selectors";
-import { DataList } from "../../components/pizzaList/PizzaList";
+import { PizzaList } from "../../components/pizzaList/PizzaList";
 import { CategoryList } from "../../components/categoryList/CategoryList";
 
 export const Home: React.FC = () => {
@@ -24,8 +24,9 @@ export const Home: React.FC = () => {
         <Sort />  
       </div>
       <h2 className={s.content__title}>Все пиццы</h2>
+      
       <article className={s.content__list}>
-        <DataList data={pizzaState.pizzas} />
+        <PizzaList data={pizzaState.pizzas} />
       </article>
       <Pagination/>
     </>

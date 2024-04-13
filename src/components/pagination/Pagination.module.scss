@@ -28,3 +28,13 @@
        }
     }
 }
+
+@media(max-width: 440px) {
+    .root {
+        a {
+            width: 30px;
+            height: 30px;
+            line-height: 27px;
+        }
+    }
+}

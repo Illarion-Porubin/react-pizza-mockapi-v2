@@ -34,7 +34,7 @@
   .categories {
     width: 100%;
     overflow: auto;
-    display: block;
+    flex-direction: column;
     ul {
       width: 785px;
     }

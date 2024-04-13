@@ -8,20 +8,25 @@ body {
   width: calc(100vw - 100px);
   height: 100%;
   background-color: #fff;
-  margin: 50px auto;
+  margin: 40px auto;
   border-radius: 10px;
   max-width: 1400px;
+  padding: 40px;
   @media (max-width: 645px) {
     width: calc(100vw - 30px);
     margin-top: 15px;
   }
 }
 
-.content {
-  padding: 40px 0;
+@media (max-width: 800px) {
+  .wrapper {
+    padding: 20px;
+  }
 }
 
-.container {
-  width: $container-width;
-  margin: 0 auto;
+
+@media (max-width: 440px) {
+  .wrapper {
+    margin: 20px auto;
+  }
 }

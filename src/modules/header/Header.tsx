@@ -5,21 +5,26 @@ import { Link } from "react-router-dom";
 import { Search } from "../../components/search/Search";
 import { useCustomSelector } from "../../hooks/store";
 import { selectAuthData, selectCartData } from "../../redux/selectors";
-import { Button } from "@mui/material";
 import { useDispatch } from "react-redux";
 import { authSlice, AuthState } from "../../redux/slices/authSlice";
 import { CartIcon } from "../../ui/cart/CartIcon";
-import { Container } from "../../components/container/Container";
+import { Mobile } from "../mobileMenu/Mobile";
 
 type CurrentType = {
   price: number;
   pizzasCount: number;
 };
 
-export const HeaderContent: React.FC = () => {
+export const Header: React.FC = () => {
   const dispatch = useDispatch();
   const cart = useCustomSelector(selectCartData);
   const userAuth = useCustomSelector<AuthState>(selectAuthData);
+  const [active, setActive] = React.useState<boolean>(false);
+  const menuList = [
+    { value: "Главная", link: '/' }, 
+    { value: "Обо мне", link: '/about' },
+    { value: "Кабинет", link: '/account' },
+  ];
 
   const totalPrice = cart.items?.reduce(
     (sum: number, current: CurrentType) =>
@@ -39,45 +44,45 @@ export const HeaderContent: React.FC = () => {
   };
 
   return (
-    <div className={s.wrapper}>
-      <div className={s.header}>
-        <div className={s.container}>
-          <Link to="/">
-            <div className={s.header__logo}>
-              <img width="38" src={pizaLogo} alt="Pizza logo" />
-              <div className={s.logo__title}>
-                <h1>React Pizza</h1>
-                <p>самая вкусная пицца во вселенной</p>
-              </div>
+    <section className={s.header}>
+      <div className={s.content}>
+        <Link to="/">
+          <div className={s.header__logo}>
+            <img width="38" src={pizaLogo} alt="Pizza logo" />
+            <div className={s.logo__title}>
+              <h1>React Pizza</h1>
+              <p>самая вкусная пицца во вселенной</p>
             </div>
-          </Link>
-          <Search />
-          <div className={s.header__cart}>
-            <Link to="/about" className={s.header__user_wrapp}>
-              <Button className={s.userEnter}>Обо мне</Button>
-            </Link>
-            <Link to="/account">
-              <Button>Кабинет</Button>
-            </Link>
-            <Link to="/login" className={s.header__user_wrapp}>
-              {userAuth.data ? (
-                <Button onClick={() => userLogout()} className={s.userEnter}>
-                  Выйти
-                </Button>
-              ) : (
-                <Button className={s.userEnter}>Войти</Button>
-              )}
-            </Link>
-            <Link to="/cart">
-              <CartIcon totalPrice={totalPrice} totalCount={totalCount} />
-            </Link>
           </div>
-        </div>
+        </Link>
+        <Search />
+        <nav className={s.header__menu}>
+          <ul className={s.header__menu_list}>
+            {menuList.map((item: {value: string, link: string}) => (
+              <li>
+                <Link to={item.link} className={s.header__menu_item}>
+                  {item.value}
+                </Link>
+              </li>
+            ))}
+            <li>
+              <Link
+                to="/login"
+                className={s.header__menu_item}
+                onClick={() => userLogout()}
+              >
+                {userAuth.data ? `Выйти` : `Войти`}
+              </Link>
+            </li>
+            <li>
+              <Link to="/cart">
+                <CartIcon totalPrice={totalPrice} totalCount={totalCount} />
+              </Link>
+            </li>
+          </ul>
+        </nav>
+        <Mobile active={active} menuList={menuList} setActive={setActive}/>
       </div>
-    </div>
+    </section>
   );
-};
-
-export const Header: React.FC = () => {
-  return <Container child={<HeaderContent />} />;
 };
