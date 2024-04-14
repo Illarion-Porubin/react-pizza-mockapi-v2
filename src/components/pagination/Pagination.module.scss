@@ -1,4 +1,4 @@
-.root {
+.paginate {
     li{
         display: inline-block;  
     }
@@ -30,7 +30,7 @@
 }
 
 @media(max-width: 440px) {
-    .root {
+    .paginate {
         a {
             width: 30px;
             height: 30px;

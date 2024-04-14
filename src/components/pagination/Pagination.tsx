@@ -13,7 +13,7 @@ export const Pagination: React.FC = () => {
   return (
     <>
       <ReactPaginate
-        className={s.root}
+        className={s.paginate}
         previousLabel="<"
         nextLabel=">"
         onPageChange={(e: {selected: number}) => dispatch(fetchPaginationPizzas(e.selected + 1)) }

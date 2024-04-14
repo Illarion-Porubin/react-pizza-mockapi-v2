@@ -24,6 +24,7 @@ export const Header: React.FC = () => {
     { value: "Главная", link: '/' }, 
     { value: "Обо мне", link: '/about' },
     { value: "Кабинет", link: '/account' },
+    { value: "Войти", link: '/login' },
   ];
 
   const totalPrice = cart.items?.reduce(
@@ -59,21 +60,23 @@ export const Header: React.FC = () => {
         <nav className={s.header__menu}>
           <ul className={s.header__menu_list}>
             {menuList.map((item: {value: string, link: string}) => (
+              item.link === "/login" ?
               <li>
-                <Link to={item.link} className={s.header__menu_item}>
-                  {item.value}
-                </Link>
-              </li>
-            ))}
-            <li>
               <Link
                 to="/login"
                 className={s.header__menu_item}
                 onClick={() => userLogout()}
               >
-                {userAuth.data ? `Выйти` : `Войти`}
+                {userAuth.data ? `Выйти` : item.value}
               </Link>
             </li>
+            :
+              <li>
+                <Link to={item.link} className={s.header__menu_item}>
+                  {item.value}
+                </Link>
+              </li>
+            ))}        
             <li>
               <Link to="/cart">
                 <CartIcon totalPrice={totalPrice} totalCount={totalCount} />
@@ -81,7 +84,7 @@ export const Header: React.FC = () => {
             </li>
           </ul>
         </nav>
-        <Mobile active={active} menuList={menuList} setActive={setActive}/>
+        <Mobile active={active} menuList={menuList} setActive={setActive} totalPrice={totalPrice} totalCount={totalCount}/>
       </div>
     </section>
   );

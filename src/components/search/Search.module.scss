@@ -1,5 +1,15 @@
 .search_wrap{
     position: relative;
+    &::after{
+        content: "";
+        position: absolute;
+        width: 20px;
+        height: 20px;
+        background-image: url("../../assets/img/search.svg");
+        left: 8px;
+        top: 15px;
+        z-index: 55;
+    }
 }
 
 .search{
@@ -8,6 +18,7 @@
     padding-left: 40px;
     border-radius: 10px;
     font-size: 16px;
+    position: relative;  
     &:focus {
         border:  1px solid rgba(0,0,0,0.5);
     }
@@ -56,9 +67,11 @@
 @media(max-width: 440px) {
     .search_wrap{
         position: absolute;
-        top: 100px;
-        left: 34px;
         max-width: 220px;
+        top: 100px;
+        left: 0;
+        right: 0;
+        margin: 0 auto;
     }
     .search{
         width: 100%;
