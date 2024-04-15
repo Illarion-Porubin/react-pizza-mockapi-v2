@@ -52,7 +52,6 @@
       display: flex;
       align-items: center;
       cursor: pointer;
-      // @include noselect();
   
       span {
         display: inline-block;
@@ -77,10 +76,6 @@
           color: darken($color: #b6b6b6, $amount: 50);
         }
       }
-    }
-  
-    .content__items {
-      display: block;
     }
   
     &__item {

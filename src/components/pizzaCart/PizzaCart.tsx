@@ -43,7 +43,7 @@ export const PizzaCart: React.FC<CartTypes> = React.memo(
               ></path>
             </svg>
           </button>
-          <b>{pizzasCount}</b>
+          <span>{pizzasCount}</span>
           <button
             onClick={onClickPlus}
             className={`${s_b.button} ${s_b.button__outline} ${s_b.button__circle}`}
@@ -66,7 +66,7 @@ export const PizzaCart: React.FC<CartTypes> = React.memo(
           </button>
         </div>
         <div className={s.cart__item_price}>
-          <b>{price * pizzasCount} ₽</b>
+          <span>{price * pizzasCount} ₽</span>
         </div>
         <div className={s.cart__item_remove}>
           <div

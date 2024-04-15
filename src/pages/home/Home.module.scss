@@ -53,19 +53,6 @@
   }
 }
 
-.container {
-  width: $container-width;
-  margin: 0 auto;
-
-  &__cart {
-    max-width: 820px;
-    margin: 90px auto;
-    .content__title {
-      margin: 0;
-    }
-  }
-}
-
 @media (max-width: 1230px) {
   .content {
     &__top {

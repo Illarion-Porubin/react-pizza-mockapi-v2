@@ -61,7 +61,7 @@ export const Header: React.FC = () => {
           <ul className={s.header__menu_list}>
             {menuList.map((item: {value: string, link: string}) => (
               item.link === "/login" ?
-              <li>
+              <li key={item.value}>
               <Link
                 to="/login"
                 className={s.header__menu_item}
@@ -71,7 +71,7 @@ export const Header: React.FC = () => {
               </Link>
             </li>
             :
-              <li>
+              <li key={item.value}>
                 <Link to={item.link} className={s.header__menu_item}>
                   {item.value}
                 </Link>

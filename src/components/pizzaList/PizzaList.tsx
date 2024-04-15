@@ -15,8 +15,9 @@ export const PizzaList: React.FC<Props> = ({data}) => {
             <Pizza data={data} key={data.id} />
           ))
         : 
-        [...new Array(8)].map(() => 
+        [...new Array(8)].map((_, id) => 
         <ContentLoader 
+          key={id}
           speed={0}
           width={280}
           height={500}
