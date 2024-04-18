@@ -23,15 +23,15 @@ export type CartTypes = {
   identity: string;
 };
 
-export type UserTypes = {
-  accessToken?: string;
-  refreshToken?: string;
-  publicId?: string;
-  phone?: string;
-  email?: string;
-  name?: string;
-  isActivated?: boolean;
-  password?: string;
-  color?: string;
-  id?: string;
-};
+// export type UserTypes = {
+//   accessToken?: string;
+//   refreshToken?: string;
+//   publicId?: string;
+//   phone?: string;
+//   email?: string;
+//   name?: string;
+//   isActivated?: boolean;
+//   password?: string;
+//   color?: string;
+//   id?: string;
+// };

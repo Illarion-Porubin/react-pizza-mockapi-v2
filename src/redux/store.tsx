@@ -1,5 +1,4 @@
 import { combineReducers, configureStore } from "@reduxjs/toolkit";
-import authSliceReducer from "./slices/authSlice";
 import pizzaSliceReducer from "./slices/pizzaSlice";
 import cartSliceReducer from "./slices/cartSlice";
 import storage from 'redux-persist/lib/storage';
@@ -18,7 +17,6 @@ import {
 
 const rootReducer = combineReducers({
     pizzaSliceReducer, 
-    authSliceReducer,
     cartSliceReducer
 });
 

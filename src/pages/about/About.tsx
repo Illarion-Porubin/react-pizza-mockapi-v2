@@ -16,7 +16,6 @@ import node from "./skills/node.svg";
 
 import { Swiper, SwiperSlide } from "swiper/react";
 import { Scrollbar, Autoplay } from "swiper/modules";
-import { Link } from "react-router-dom";
 import "swiper/css";
 import "swiper/css/effect-fade";
 import "swiper/css/autoplay";
@@ -37,7 +36,7 @@ export const About: React.FC = React.memo(() => {
     materialui,
     node,
   ];
-  
+
   return (
     <div className={s.bg}>
       <div className="container">
@@ -45,12 +44,7 @@ export const About: React.FC = React.memo(() => {
           <div className={s.mainInfo}>
             <div className={s.me}>
               <div className={s.info}>
-                <div className={s.headrTitle}>
-                  <h1 className={s.title}>Информация обо мне</h1>
-                  <Link className={s.homeLink} to="/">
-                    На главную
-                  </Link>
-                </div>
+                <h1 className={s.title}>Информация обо мне</h1>
                 <div className={s.mainInfoWrap}>
                   <div className={s.infoText}>
                     <p className={s.text}>
@@ -70,11 +64,12 @@ export const About: React.FC = React.memo(() => {
                       MySql, Sequelize, Passport-google-oauth20 и т.д.
                     </p>
                     <p className={s.text}>
-                      Не пугаюсь таких аббревиатур как: OOP, SOLID, KISS, DRY, SPA, PWA, SSR.
+                      Не пугаюсь таких аббревиатур как: OOP, SOLID, KISS, DRY,
+                      SPA, PWA, SSR.
                     </p>
                     <p className={s.text}>
-                      Могу рассказать про: React, Redux, Redux Toolkit, Axios, SQL, MongoDB,
-                      Sequelize и ещё много полезных штук.
+                      Могу рассказать про: React, Redux, Redux Toolkit, Axios,
+                      SQL, MongoDB, Sequelize и ещё много полезных штук.
                     </p>
                     <p className={s.text}>Буду рад с вами сотрудничать.</p>
                   </div>
@@ -136,14 +131,11 @@ export const About: React.FC = React.memo(() => {
                   },
                 }}
               >
-                {
-                  icons.map((item, id: number) => (
-                    <SwiperSlide className={s.slider} key={id}>
-                      <img className={s.slide} src={item} alt={item} key={id} />
-                    </SwiperSlide>
-                   )
-                  )
-                }
+                {icons.map((item, id: number) => (
+                  <SwiperSlide className={s.slider} key={id}>
+                    <img className={s.slide} src={item} alt={item} key={id} />
+                  </SwiperSlide>
+                ))}
               </Swiper>
             </div>
           </div>

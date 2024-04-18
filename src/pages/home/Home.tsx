@@ -7,15 +7,20 @@ import { Pagination } from "../../components/pagination/Pagination";
 import { selectCurrentData } from "../../redux/selectors";
 import { PizzaList } from "../../components/pizzaList/PizzaList";
 import { CategoryList } from "../../components/categoryList/CategoryList";
+import { usePaginate } from "../../hooks/usePaginate";
 
 export const Home: React.FC = () => {
   const dispatch = useCustomDispatch();
   const pizzaState = useCustomSelector(selectCurrentData);
+  const [page, setPage] = React.useState<number>(0);
+  const { paginate } = usePaginate({quantityItems: 8, dataList: pizzaState.pizzas, currentPage: page})
 
   React.useEffect(() => {
     dispatch(fetchGetPizzas());
     window.scrollTo(0, 0);
   }, [dispatch]);
+
+  console.log(paginate.newDataList);
 
   return (
     <>
@@ -26,9 +31,9 @@ export const Home: React.FC = () => {
       <h2 className={s.content__title}>Все пиццы</h2>
       
       <article className={s.content__list}>
-        <PizzaList data={pizzaState.pizzas} />
+        <PizzaList data={paginate.newDataList} />
       </article>
-      <Pagination/>
+      <Pagination setPage={setPage}/>
     </>
   );
 };

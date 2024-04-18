@@ -11,7 +11,11 @@ type DataType = {
   }
 }
 
-export const fetchOrder = createAsyncThunk<CartState, CartState, {rejectValue: string | unknown}>("cart/fetchOrder", async (params, { rejectWithValue }) => {
+export type CartState = {
+  items: CartTypes[];
+};
+
+export const fetchOrder = createAsyncThunk<CartState, {phone: string, cart: CartTypes[]}, {rejectValue: string | unknown}>("cart/fetchOrder", async (params, { rejectWithValue }) => {
   const { data }: DataType = await axios.post("/api/order", params);
   if (!data) {
     return rejectWithValue("Server Error!");
@@ -20,9 +24,7 @@ export const fetchOrder = createAsyncThunk<CartState, CartState, {rejectValue: s
 });
 
 
-export type CartState = {
-  items: CartTypes[];
-};
+
 
 export const initialState: CartState = {
   items: [],

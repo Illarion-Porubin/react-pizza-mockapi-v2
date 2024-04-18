@@ -2,8 +2,6 @@ import { createSlice, createAsyncThunk, PayloadAction, Action } from "@reduxjs/t
 import { PizzaTypes } from "../../types/types";
 import axios from "../../axios";
 
-
-
 export const fetchGetPizzas = createAsyncThunk<PizzaTypes[], undefined, {rejectValue: string}>(
   'pizzas/fetchGetPizzas', async (_, { rejectWithValue }) => {
       const {data} = await axios.get(`https://6612becb53b0d5d80f664b71.mockapi.io/items`);
@@ -22,7 +20,7 @@ export const fetchFilterPizzas = createAsyncThunk<PizzaTypes[], string, { reject
             return data;
           }
           default: {
-            const {data} = await axios.get(`https://6612becb53b0d5d80f664b71.mockapi.io/items?category=${category}`);
+            const {data} = await axios.get(`https://6612becb53b0d5d80f664b71.mockapi.io/items?limit=${quantityProduct}&category=${category}`);
             return data;
           }
         }
@@ -45,11 +43,12 @@ export const fetchSearchPizzas = createAsyncThunk<PizzaTypes[], string, {rejectV
 
 export const fetchSortPizzas = createAsyncThunk<PizzaTypes[], {sort: string, mark: string}, {rejectValue: string}>(
   "pizzas/fetchSortPizzas", async (value: {sort: string, mark: string}, {rejectWithValue}) => {
-      if(value) {
-        const {data} = await axios.get(`https://6612becb53b0d5d80f664b71.mockapi.io/items?sortBy=${value.sort}`);
-        return value.mark === "LESS" ? data.reverse() : data;
+    console.log(value.mark);
+      if(!value) {
+        return rejectWithValue('fetchSortPizzas Error!');  
       }
-      return rejectWithValue('fetchSortPizzas Error!');
+      const {data} = await axios.get(`https://6612becb53b0d5d80f664b71.mockapi.io/items?sortBy=${value.sort}`);
+      return value.mark === "LESS" ? data : data.reverse();
   } 
 )
 
@@ -62,7 +61,6 @@ export const fetchPaginationPizzas = createAsyncThunk<PizzaTypes[], number, {rej
       return data;
 });
 
-///////////////
 export const fetchPostPizza = createAsyncThunk<PizzaTypes, PizzaTypes, {rejectValue: string}>(
   "pizza/fetchPostPizza", async (newPizza, { rejectWithValue }) => {
       if(!newPizza){
@@ -116,7 +114,7 @@ export const pizzaSlice = createSlice({
     })
     .addCase(fetchGetPizzas.fulfilled, (state, action) => {
       state.pages = Math.round(action.payload.length / quantityProduct) || 0;
-      state.pizzas = action.payload.slice(0, quantityProduct); 
+      state.pizzas = action.payload;
       state.isLoading = 'loaded';
     })
     .addCase(fetchGetPizzas.rejected, (state) => {
@@ -129,6 +127,7 @@ export const pizzaSlice = createSlice({
       state.isLoading = 'loading';
     })
     .addCase(fetchFilterPizzas.fulfilled, (state, action) => {
+      state.pages = Math.round(action.payload.length / quantityProduct) || 0;
       state.pizzas = action.payload; 
       state.isLoading = 'loaded';
     })
@@ -188,5 +187,3 @@ export default pizzaSlice.reducer;
 function isError(action: Action) {
   return action.type.endsWith('rejected');
 }
-
-
