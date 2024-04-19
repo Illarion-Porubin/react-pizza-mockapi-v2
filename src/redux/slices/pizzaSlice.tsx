@@ -43,7 +43,6 @@ export const fetchSearchPizzas = createAsyncThunk<PizzaTypes[], string, {rejectV
 
 export const fetchSortPizzas = createAsyncThunk<PizzaTypes[], {sort: string, mark: string}, {rejectValue: string}>(
   "pizzas/fetchSortPizzas", async (value: {sort: string, mark: string}, {rejectWithValue}) => {
-    console.log(value.mark);
       if(!value) {
         return rejectWithValue('fetchSortPizzas Error!');  
       }

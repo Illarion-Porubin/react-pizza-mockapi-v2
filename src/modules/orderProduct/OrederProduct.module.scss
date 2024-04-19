@@ -1,0 +1,21 @@
+.input__phone label {
+    left: 40px;
+    padding-bottom: 20px;
+}
+
+.input__phone input {
+    height: 54px ;
+}
+
+.input__phone {
+    height: 54px !important;
+    padding-left: 40px !important;
+    border: none !important;
+    width: 260px !important;
+}
+
+@media(max-width: 420px) {
+    .input__phone {
+        width: 100% !important;
+    }
+}

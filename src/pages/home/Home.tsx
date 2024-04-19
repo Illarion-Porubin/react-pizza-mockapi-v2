@@ -20,8 +20,6 @@ export const Home: React.FC = () => {
     window.scrollTo(0, 0);
   }, [dispatch]);
 
-  console.log(paginate.newDataList);
-
   return (
     <>
       <div className={s.content__top}>

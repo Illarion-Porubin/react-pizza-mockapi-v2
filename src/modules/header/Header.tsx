@@ -1,11 +1,11 @@
 import React from "react";
-import pizaLogo from "../../assets/img/pizza-logo.svg";
+import pizaLogo from "../../assets/svg/pizza-logo.svg";
 import s from "./Header.module.scss";
 import { Link } from "react-router-dom";
 import { Search } from "../../components/search/Search";
 import { useCustomSelector } from "../../hooks/store";
 import { selectCartData } from "../../redux/selectors";
-import { CartIcon } from "../../ui/cart/CartIcon";
+import { CartIcon } from "../../ui/cart/CartMainBtn";
 import { Mobile } from "../mobileMenu/Mobile";
 
 
@@ -15,8 +15,11 @@ type CurrentType = {
 };
 
 export const Header: React.FC = () => {
+  
+
   const cart = useCustomSelector(selectCartData);
   const [active, setActive] = React.useState<boolean>(false);
+  const [link, setLink] = React.useState<string>('');
   const menuList = [
     { value: "Главная", link: "/" },
     { value: "Обо мне", link: "/about" },
@@ -33,7 +36,7 @@ export const Header: React.FC = () => {
   );
 
   return (
-    <section className={s.header}>
+    <section className={s.header} style={link === "http://localhost:5173/#/about" ? {paddingBottom: 0} : undefined}>
       <div className={s.content}>
         <Link to="/">
           <div className={s.header__logo}>
@@ -44,18 +47,17 @@ export const Header: React.FC = () => {
             </div>
           </div>
         </Link>
-        <Search />
+        {link === "http://localhost:5173/#/about" ? null : <Search />}
         <nav className={s.header__menu}>
           <ul className={s.header__menu_list}>
             {menuList.map((item: { value: string; link: string }) => (
-              <li key={item.value} className={s.header__menu_li}>
+              <li key={item.value} className={s.header__menu_li} onClick={() => setLink(window.location.href)}>
                 <Link to={item.link} className={s.header__menu_item}>
                   {item.value}
                 </Link>
               </li>
             ))}
-
-            <li className={s.header__menu_li}>
+            <li className={s.header__menu_li} onClick={() => setLink(window.location.href)}>
               <Link to="/cart">
                 <CartIcon totalPrice={totalPrice} totalCount={totalCount} />
               </Link>
@@ -68,6 +70,7 @@ export const Header: React.FC = () => {
           setActive={setActive}
           totalPrice={totalPrice}
           totalCount={totalCount}
+          setLink={setLink}
         />
       </div>
     </section>

@@ -1,10 +1,9 @@
-@import "../../scss/variables";
+@import '../../shared/styles/variables';
 
 .cart {
   &__item {
     display: flex;
     width: 100%;
-    // border-top: 2px solid $gray-line;
     margin: 40px 0;
 
     &_img {

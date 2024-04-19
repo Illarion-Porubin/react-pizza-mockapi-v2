@@ -28,7 +28,6 @@ export const Sort: React.FC<Props> = () => {
   };
 
   const handleClickOutside = React.useCallback((event: MouseEvent) => {
-    console.log(sortRef.current && event.composedPath().includes(sortRef.current), 'sortRef')
     if (sortRef.current && !event.composedPath().includes(sortRef.current)) {
       setOpen(false);
     }

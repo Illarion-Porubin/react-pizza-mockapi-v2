@@ -1,5 +1,5 @@
 import React from "react";
-import sb from "../../scss/components/_button.module.scss";
+import sb from "../../shared/styles/_button.module.scss";
 
 interface Props {
   totalPrice: number;
