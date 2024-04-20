@@ -16,7 +16,7 @@ export const Search: React.FC = () => {
   React.useEffect(() => {
     if (debounce) {
       dispatch(fetchSearchPizzas(debounce));
-    } else {
+    } else if(debounce === "") {
       dispatch(fetchGetPizzas());
     }
   }, [dispatch, debounce]);

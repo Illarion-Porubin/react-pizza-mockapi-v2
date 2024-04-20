@@ -8,7 +8,7 @@ interface Props {
   setPage: React.Dispatch<React.SetStateAction<number>>
 }
 
-export const Pagination: React.FC<Props> = React.memo(({setPage}) => {
+export const Pagination: React.FC<Props> = ({setPage}) => {
   const pizzaState = useCustomSelector(selectCurrentData);
 
   return (
@@ -24,4 +24,4 @@ export const Pagination: React.FC<Props> = React.memo(({setPage}) => {
       />
   </>
   )
-})
+}
