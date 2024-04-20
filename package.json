@@ -1,13 +1,16 @@
 {
   "name": "client",
   "private": true,
+  "homepage": "https://illarion-porubin.github.io/react-pizza-mockapi-v2/",
   "version": "0.0.0",
   "type": "module",
   "scripts": {
     "dev": "vite",
     "build": "tsc && vite build",
     "lint": "eslint . --ext ts,tsx --report-unused-disable-directives --max-warnings 0",
-    "preview": "vite preview"
+    "preview": "vite preview",
+    "deploy": "gh-pages -d dist",
+    "predeploy": "npm run build"
   },
   "dependencies": {
     "@cloudinary/react": "^1.13.0",
@@ -20,6 +23,7 @@
     "axios": "^1.6.8",
     "canvas-confetti": "^1.9.2",
     "cloudinary-react": "^1.8.1",
+    "gh-pages": "^6.1.1",
     "jwt-decode": "^4.0.0",
     "passport-github2": "^0.1.12",
     "passport-google-oauth20": "^2.0.0",
