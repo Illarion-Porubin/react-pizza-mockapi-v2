@@ -14,7 +14,7 @@ type CurrentType = {
   pizzasCount: number;
 };
 
-export const Header: React.FC = () => {
+export const Header: React.FC = React.memo(() => {
   
 
   const cart = useCustomSelector(selectCartData);
@@ -75,4 +75,4 @@ export const Header: React.FC = () => {
       </div>
     </section>
   );
-};
+});

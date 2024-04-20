@@ -3,22 +3,26 @@ import s from "./CategoryList.module.scss";
 import { useCustomDispatch } from "../../hooks/store";
 import { fetchFilterPizzas, fetchGetPizzas } from "../../redux/slices/pizzaSlice";
 
-export const CategoryList: React.FC = () => {
+export const CategoryList: React.FC = React.memo(() => {
   const dispatch = useCustomDispatch();
   const [activeIndex, setActiveIndex] = React.useState<number>(0);
 
-  const categories: string[] = [
+  const categories: string[] = React.useMemo( () => [
     "Все",
     "Мясные",
     "Вегетарианская",
     "Гриль",
     "Острые",
-  ];
+  ], []);
 
-  const menu = (id: number) => {
+  const menu = React.useCallback( (id: number) => {
+    if(!id) {
+      setActiveIndex(id);
+      dispatch(fetchGetPizzas())
+    }
     setActiveIndex(id);
     dispatch(fetchFilterPizzas(String(id)));
-  };
+  }, [dispatch,]);
 
   return (
     <div className={s.categories}>
@@ -27,7 +31,7 @@ export const CategoryList: React.FC = () => {
           value === "Все" ? (
             <li
               className={activeIndex === index ? s.active : " "}
-              onClick={() => dispatch(fetchGetPizzas())}
+              onClick={() => menu(index)}
               key={value}
             >
               {value}
@@ -45,4 +49,4 @@ export const CategoryList: React.FC = () => {
       </ul>
     </div>
   );
-};
+});

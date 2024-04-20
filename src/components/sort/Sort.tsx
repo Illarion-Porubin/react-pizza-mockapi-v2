@@ -12,14 +12,14 @@ export const Sort: React.FC<Props> = () => {
   const [activeSort, setActiveSort] = React.useState<number>(0);
   const sortRef = React.useRef<HTMLDivElement>(null);
 
-  const sortArray = [
+  const sortArray = React.useMemo(() =>[
     { name: `популярные`, mark: "MORE", sort: "rating" },
     { name: `необычные`, mark: "LESS", sort: "rating" },
     { name: `дороже`, mark: "MORE", sort: "price" },
     { name: `дешевле`, mark: "LESS", sort: "price" },
     { name: `по алфавиту`, mark: "MORE", sort: "title" },
     { name: `с конца алфавита`, mark: "LESS", sort: "title" },
-  ];
+  ], []);
 
   const selectSort = (index: number, sort: string, mark: string) => {
     dispatch(fetchSortPizzas({sort, mark}));

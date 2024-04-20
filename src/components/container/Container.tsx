@@ -7,7 +7,5 @@ interface Props {
 }
 
 export const Container: React.FC<Props> = ({child}) => {
-  return (
-    <div className={s.container}>{child}</div>
-  )
+  return <div className={s.container}>{child}</div>
 }

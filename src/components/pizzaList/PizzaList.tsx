@@ -7,7 +7,7 @@ interface Props {
     data: PizzaTypes[]
 }
 
-export const PizzaList: React.FC<Props> = ({data}) => {
+export const PizzaList: React.FC<Props> = React.memo(({data}) => {
   return (
     <>
       {
@@ -21,4 +21,4 @@ export const PizzaList: React.FC<Props> = ({data}) => {
         )}
     </>
   );
-};
+})

@@ -13,7 +13,6 @@ export const Search: React.FC = () => {
   const search = React.useRef<HTMLInputElement>(null);
   const debounce = useDebounce(value, 400);
 
-
   React.useEffect(() => {
     if (debounce) {
       dispatch(fetchSearchPizzas(debounce));

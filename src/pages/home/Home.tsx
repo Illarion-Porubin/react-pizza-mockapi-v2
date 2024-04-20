@@ -9,7 +9,7 @@ import { PizzaList } from "../../components/pizzaList/PizzaList";
 import { CategoryList } from "../../components/categoryList/CategoryList";
 import { usePaginate } from "../../hooks/usePaginate";
 
-export const Home: React.FC = () => {
+export const Home: React.FC = React.memo(() => {
   const dispatch = useCustomDispatch();
   const pizzaState = useCustomSelector(selectCurrentData);
   const [page, setPage] = React.useState<number>(0);
@@ -26,12 +26,11 @@ export const Home: React.FC = () => {
         <CategoryList />
         <Sort />  
       </div>
-      <h2 className={s.content__title}>Все пиццы</h2>
-      
+      <h2 className={s.content__title}>Все пиццы</h2> 
       <article className={s.content__list}>
         <PizzaList data={paginate.newDataList} />
       </article>
       <Pagination setPage={setPage}/>
     </>
   );
-};
+});
