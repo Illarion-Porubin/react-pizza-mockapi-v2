@@ -36,7 +36,7 @@ export const Header: React.FC = React.memo(() => {
   );
 
   return (
-    <section className={s.header} style={link === "http://localhost:5173/#/about" ? {paddingBottom: 0} : undefined}>
+    <section className={s.header} style={link.slice(-5) === "about" ? {paddingBottom: 0} : undefined}>
       <div className={s.content}>
         <Link to="/">
           <div className={s.header__logo}>
@@ -47,7 +47,7 @@ export const Header: React.FC = React.memo(() => {
             </div>
           </div>
         </Link>
-        {link === "http://localhost:5173/#/about" ? null : <Search />}
+        {link.slice(-5) === "about" ? null : <Search />}
         <nav className={s.header__menu}>
           <ul className={s.header__menu_list}>
             {menuList.map((item: { value: string; link: string }) => (
