@@ -25,7 +25,7 @@ export const Cart: React.FC = React.memo(() => {
       </h1>
       <Stack>
         <div className={`${s.container} ${s.container__cart}`}>
-          <div className={`${s.cart}`}>
+          <div className={s.cart}>
             <div className={s.cart__top}>
               <h2 className={s.content__title}>
                 <img className={s.cartIcon} src={CatrSvg} alt="cart" />

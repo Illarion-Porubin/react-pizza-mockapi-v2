@@ -36,7 +36,7 @@ export const Sort: React.FC<Props> = () => {
   React.useEffect(() => {
     document.body.addEventListener("click", handleClickOutside);
     return () => {
-      // размонтируем обработчик событий (addEventListener) при переходе на др стр
+      // размонтируем обработчик событий (addEventListener)
       document.body.removeEventListener("click", handleClickOutside);
     };
   }, [handleClickOutside]);

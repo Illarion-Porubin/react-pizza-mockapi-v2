@@ -1,41 +1,18 @@
 import React from "react";
 import s from "./Pizza.module.scss";
 import sb from "../../shared/styles/_button.module.scss";
-import { useDispatch } from "react-redux";
-import { cartSlice } from "../../redux/slices/cartSlice";
-import { PizzaTypes, CartTypes } from "../../types/types";
+import { PizzaTypes } from "../../types/types";
+import { useOrder } from "../../hooks/useOrder";
 
 interface Props {
   data: PizzaTypes;
 }
 
 export const Pizza: React.FC<Props> = ({ data }) => {
-  const dispatch = useDispatch();
-  const [activeTypes, setActiveTypes] = React.useState<number>(data.types[0]);
-  const [activeSize, setActiveSize] = React.useState<number>(data.sizes[0]);
-  const [pizzaCount, setPizzaCount] = React.useState<number>(0);
   const [indexSize, setIndexSize] = React.useState<number>(0);
-  const sizePrice = [0, 130, 255];
-
-  const changeSize = (size: number, i: number) => { 
-    setActiveSize(size)
-    setIndexSize(i) 
-  }
-
-  const orderPizza = (data: PizzaTypes) => {
-    if(pizzaCount) {
-      const newOrder = {
-        ...data, 
-        sizes: activeSize, 
-        types: activeTypes, 
-        pizzasCount: pizzaCount, 
-        pizzasPrice: pizzaCount * (+data.price + +sizePrice[indexSize]),
-        identity: data.title + activeTypes + indexSize
-      }
-      dispatch<{payload: CartTypes; type: string}>(cartSlice.actions.addOrder(newOrder))
-      setPizzaCount(0)
-    }
-  }
+  const [indexTypes, setIndexTypes] = React.useState<number>(0);
+  const [pizzaCount, setPizzaCount] = React.useState<number>(0);
+  const {options} = useOrder({data, indexSize, indexTypes, pizzaCount, setPizzaCount});
 
   return (
     <div className={s.pizza_block}>
@@ -43,21 +20,21 @@ export const Pizza: React.FC<Props> = ({ data }) => {
       <h4 className={s.pizza_block__title}>{data.title}</h4>
       <div className={s.pizza_block__selector}>
         <ul>
-          {data.types.map((types) => (
+          {data.types.map((types, id) => (
             <li
-              onClick={() => setActiveTypes(types)}
-              className={activeTypes === types ? s.active : ""}
+              onClick={() => setIndexTypes(id)}
+              className={indexTypes === types ? s.active : ""}
               key={types}
             >
-              {types}
+              {types ? "традиционная" : "тонкая" }
             </li>
           ))}
         </ul>
         <ul>
           {data.sizes.map((sizes, index) => (
             <li
-              onClick={() => changeSize(sizes, index)}
-              className={activeSize === sizes ? s.active : ""}
+              onClick={() => setIndexSize(index)}
+              className={data.sizes[indexSize] === sizes ? s.active : ""}
               key={sizes}
             >
               {sizes} см
@@ -66,7 +43,7 @@ export const Pizza: React.FC<Props> = ({ data }) => {
         </ul>
       </div>
       <div className={s.pizza_block__bottom}>
-        <div className={s.pizza_block__price}>{+data.price + +sizePrice[indexSize]} ₽</div>
+        <div className={s.pizza_block__price}>{options.priceOnePizza} ₽</div>
         <div className={s.pizzaBlockValue}>
           <button
             className={s.countValue}
@@ -113,7 +90,7 @@ export const Pizza: React.FC<Props> = ({ data }) => {
             </svg>
           </button>
         </div>
-        <div className={`${sb.button} ${sb.button__outline} ${sb.button__add}`} onClick={() => orderPizza(data)}>
+        <div className={`${sb.button} ${sb.button__outline} ${sb.button__add}`} onClick={() => options.orderPizza(data)}>
           <span>Добавить</span>
           <i>{pizzaCount}</i>
         </div>

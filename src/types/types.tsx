@@ -13,10 +13,9 @@ export type CartTypes = {
   id: number;
   imageUrl: string;
   title: string;
-  types: number;
+  types: string;
   sizes: number;
   price: number;
-  pizzasPrice: number;
   pizzasCount: number;
   rating: number;
   category: number;

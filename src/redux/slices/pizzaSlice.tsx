@@ -5,25 +5,35 @@ import axios from "../../axios";
 export const fetchGetPizzas = createAsyncThunk<PizzaTypes[], undefined, {rejectValue: string}>(
   'pizzas/fetchGetPizzas', async (_, { rejectWithValue }) => {
       const {data} = await axios.get(`https://6612becb53b0d5d80f664b71.mockapi.io/items`);
-      if (!data) {
+      if (data) {
+        try {
+          return data
+        } catch (error) {
+          return rejectWithValue('Data not found!');
+        }
+      }
+      else{
         return rejectWithValue('fetchGetPizzas Error!');
       }
-      return data;
 });
 
 export const fetchFilterPizzas = createAsyncThunk<PizzaTypes[], string, { rejectValue: string}>(
   "pizzas/fetchFilterPizzas", async (category: string, { rejectWithValue }) => {
       if(category){
-        switch (category) {
-          case '0': {
-            const {data} = await axios.get(`https://6612becb53b0d5d80f664b71.mockapi.io/items?page=1&limit=${quantityProduct}`);
-            return data;
+        try {
+          switch (category) {
+            case '0': {
+              const {data} = await axios.get(`https://6612becb53b0d5d80f664b71.mockapi.io/items?page=1&limit=${quantityProduct}`);
+              return data;
+            }
+            default: {
+              const {data} = await axios.get(`https://6612becb53b0d5d80f664b71.mockapi.io/items?limit=${quantityProduct}&category=${category}`);
+              return data;
+            }
           }
-          default: {
-            const {data} = await axios.get(`https://6612becb53b0d5d80f664b71.mockapi.io/items?limit=${quantityProduct}&category=${category}`);
-            return data;
-          }
-        }
+        } catch (error) {
+          return rejectWithValue('Category not found!');
+        }  
       } 
       else{
         return rejectWithValue('fetchFilterPizzas Error!');
@@ -33,21 +43,33 @@ export const fetchFilterPizzas = createAsyncThunk<PizzaTypes[], string, { reject
 
 export const fetchSearchPizzas = createAsyncThunk<PizzaTypes[], string, {rejectValue: string}>(
   "pizzas/fetchSearchPizzas", async (value: string, {rejectWithValue}) => {
-      if(!value) {
-        return rejectWithValue('fetchFilterPizzas Error!');
+      if(value) {
+        try {
+          const {data} = await axios.get(`https://6612becb53b0d5d80f664b71.mockapi.io/items?title=${value}`);
+          return data;
+        } catch (error) {
+          return rejectWithValue('Value not found!');
+        }
       }
-      const {data} = await axios.get(`https://6612becb53b0d5d80f664b71.mockapi.io/items?title=${value}`);
-      return data;
+      else{
+        return rejectWithValue('fetchFilterPizzas Error!');   
+      }
   } 
 )
 
 export const fetchSortPizzas = createAsyncThunk<PizzaTypes[], {sort: string, mark: string}, {rejectValue: string}>(
   "pizzas/fetchSortPizzas", async (value: {sort: string, mark: string}, {rejectWithValue}) => {
-      if(!value) {
+      if(value) {
+        try {
+          const {data} = await axios.get(`https://6612becb53b0d5d80f664b71.mockapi.io/items?sortBy=${value.sort}`);
+          return value.mark === "LESS" ? data : data.reverse();
+        } catch (error) {
+          return rejectWithValue('Value not found!');   
+        }
+      }
+      else {
         return rejectWithValue('fetchSortPizzas Error!');  
       }
-      const {data} = await axios.get(`https://6612becb53b0d5d80f664b71.mockapi.io/items?sortBy=${value.sort}`);
-      return value.mark === "LESS" ? data : data.reverse();
   } 
 )
 
@@ -55,28 +77,46 @@ export const fetchPaginationPizzas = createAsyncThunk<PizzaTypes[], number, {rej
   'pizzas/fetchPaginationPizzas', async (page: number, { rejectWithValue }) => {
       const { data } = await axios.get(`https://6612becb53b0d5d80f664b71.mockapi.io/items?page=${page}&limit=${quantityProduct}`)
       if (!data) {
+        try {
+          return data;  
+        } catch (error) {
+          return rejectWithValue('Data not found!'); 
+        }
+      }
+      else{
         return rejectWithValue('fetchPaginationPizzas Error!');
       }
-      return data;
 });
 
 export const fetchPostPizza = createAsyncThunk<PizzaTypes, PizzaTypes, {rejectValue: string}>(
   "pizza/fetchPostPizza", async (newPizza, { rejectWithValue }) => {
-      if(!newPizza){
-        return rejectWithValue('fetchGetPizzas Error!');
+      if(newPizza){
+        try {
+          const {data} = await axios.post('https://6612becb53b0d5d80f664b71.mockapi.io/items', newPizza);
+          return data;
+        } catch (error) {
+          return rejectWithValue('NewPizza not found!');   
+        }
       }
-      const {data} = await axios.post('https://6612becb53b0d5d80f664b71.mockapi.io/items', newPizza);
-      return data;
+      else{
+        return rejectWithValue('fetchGetPizzas Error!');  
+      }
   }
 )
 
 export const fetchDeletePizza = createAsyncThunk<PizzaTypes, number, {rejectValue: string}>(
   "pizza/fetchDeletePizza", async (id: number, { rejectWithValue }) => {
-      if(!id){
+      if(id){
+        try {
+          const {data} = await axios.delete(`https://6612becb53b0d5d80f664b71.mockapi.io/id=${id}`);
+          return data;
+        } catch (error) { 
+          return rejectWithValue('Id not found!');
+        }
+      }
+      else{
         return rejectWithValue('fetchDeletePizza Error!');
       }
-      const {data} = await axios.delete(`https://6612becb53b0d5d80f664b71.mockapi.io/id=${id}`);
-      return data;
   }
 )
 

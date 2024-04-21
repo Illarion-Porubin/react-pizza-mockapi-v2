@@ -24,7 +24,6 @@ export const useCart = ({setOpen, setErrorPhone, phone}: Props) => {
         (sum: number, current: CartTypes) => sum + current.pizzasCount,
         0
     );
-
     const onClickClear = () => {
         if (window.confirm("Очистить корзину?")) {
             dispatch(cartSlice.actions.clearItems());

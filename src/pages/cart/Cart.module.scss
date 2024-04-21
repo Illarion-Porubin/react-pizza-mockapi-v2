@@ -16,7 +16,7 @@
   margin: 0 auto;
   &__cart {
     max-width: 820px;
-    margin: 30px auto;
+    margin: 0 auto;
   }
 }
 .cartIcon{
@@ -26,6 +26,7 @@
 }
 
 .cart {
+  margin: 20px 0;
   &__top {
     display: flex;
     justify-content: space-between;
@@ -36,7 +37,6 @@
     display: flex;
     align-items: center;
     cursor: pointer;
-    // @include noselect();
 
     span {
       display: inline-block;
@@ -185,7 +185,6 @@
   }
 
   &__bottom {
-    margin: 50px 0;
 
     &_details {
       display: flex;

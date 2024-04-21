@@ -17,13 +17,16 @@ export type CartState = {
 
 export const fetchOrder = createAsyncThunk<CartState, {phone: string, cart: CartTypes[]}, {rejectValue: string | unknown}>("cart/fetchOrder", async (params, { rejectWithValue }) => {
   const { data }: DataType = await axios.post("/api/order", params);
-  if (!data) {
+  if (data) {
+    try {
+      return data;
+    } catch (error) {
+      return rejectWithValue("data not found!"); 
+    }
+  } else {
     return rejectWithValue("Server Error!");
   }
-  return data;
 });
-
-
 
 
 export const initialState: CartState = {
