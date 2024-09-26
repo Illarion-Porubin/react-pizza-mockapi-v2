@@ -9,12 +9,14 @@ import { CategoryList } from "../../components/categoryList/CategoryList";
 import { usePaginate } from "../../hooks/usePaginate";
 
 export const Home: React.FC = React.memo(() => {
+  const test = (document.getElementsByName("test" )).offsetWidth;
+
   const pizzaState = useCustomSelector(selectCurrentData);
   const [page, setPage] = React.useState<number>(0);
   const { paginate } = usePaginate({quantityItems: 8, dataList: pizzaState.pizzas, currentPage: page}); 
 
   return (
-    <>
+    <div className="test">
       <div className={s.content__top}>
         <CategoryList />
         <Sort />  
@@ -24,6 +26,6 @@ export const Home: React.FC = React.memo(() => {
         <PizzaList data={paginate.newDataList} />
       </article>
       <Pagination setPage={setPage}/>
-    </>
+    </div>
   );
 });
